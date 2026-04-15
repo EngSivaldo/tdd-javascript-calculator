@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Premium</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-900 to-gray-900 min-h-screen flex items-center justify-center p-6">
+
+    <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl p-8 transform transition hover:scale-105">
+        <h1 class="text-3xl font-extrabold text-gray-800 mb-6 text-center">Checkout <span class="text-blue-600">Pro</span></h1>
+        
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Preço do Produto (R$)</label>
+                <input type="number" id="preco" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: 100.00">
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700">Desconto (%)</label>
+                <input type="number" id="desconto" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500" placeholder="Ex: 10">
+            </div>
+
+            <button onclick="calcular()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl transition duration-300 shadow-lg active:transform active:scale-95">
+                Calcular Total
+            </button>
+        </div>
+
+        <div id="resultado-container" class="mt-8 p-4 bg-blue-50 rounded-xl hidden">
+            <p class="text-center text-gray-600 text-sm uppercase font-bold tracking-wider">Total Final</p>
+            <h2 id="resultado" class="text-center text-4xl font-black text-blue-700">R$ 0,00</h2>
+        </div>
+    </div>
+
+    <script>
+        // Função para simular o import no navegador
+        function calcularDescontoNav(valor, porcentagem) {
+            return valor - (valor * (porcentagem / 100));
+        }
+
+        function calcular() {
+            const preco = parseFloat(document.getElementById('preco').value);
+            const desconto = parseFloat(document.getElementById('desconto').value);
+            
+            if (isNaN(preco) || isNaN(desconto)) {
+                alert("Por favor, preencha os valores corretamente.");
+                return;
+            }
+
+            const total = calcularDescontoNav(preco, desconto);
+            
+            document.getElementById('resultado-container').classList.remove('hidden');
+            document.getElementById('resultado').innerText = `R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+        }
+    </script>
+</body>
+</html>
