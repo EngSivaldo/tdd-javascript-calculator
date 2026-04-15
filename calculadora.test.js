@@ -1,4 +1,4 @@
-const { calcularDesconto } = require('./calculadora'); // Importa apenas UMA vez no topo
+const { calcularDesconto } = require('./calculadora-v2'); // Importa apenas UMA vez no topo
 
 test('deve calcular desconto de 10% corretamente', () => {
     expect(calcularDesconto(100, 10)).toBe(90);
