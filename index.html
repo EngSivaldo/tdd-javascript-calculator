@@ -34,25 +34,29 @@
     </div>
 
     <script>
-        // Função para simular o import no navegador
-        function calcularDescontoNav(valor, porcentagem) {
-            return valor - (valor * (porcentagem / 100));
+    // Agora a função do HTML tem a mesma segurança do seu arquivo de teste!
+    function calcularDescontoNav(valor, porcentagem) {
+        // A TRAVA QUE ESTAVA FALTANDO AQUI:
+        if (porcentagem > 100 || porcentagem < 0) {
+            return valor;
+        }
+        return valor - (valor * (porcentagem / 100));
+    }
+
+    function calcular() {
+        const preco = parseFloat(document.getElementById('preco').value);
+        const desconto = parseFloat(document.getElementById('desconto').value);
+        
+        if (isNaN(preco) || isNaN(desconto)) {
+            alert("Por favor, preencha os valores corretamente.");
+            return;
         }
 
-        function calcular() {
-            const preco = parseFloat(document.getElementById('preco').value);
-            const desconto = parseFloat(document.getElementById('desconto').value);
-            
-            if (isNaN(preco) || isNaN(desconto)) {
-                alert("Por favor, preencha os valores corretamente.");
-                return;
-            }
-
-            const total = calcularDescontoNav(preco, desconto);
-            
-            document.getElementById('resultado-container').classList.remove('hidden');
-            document.getElementById('resultado').innerText = `R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
-        }
-    </script>
+        const total = calcularDescontoNav(preco, desconto);
+        
+        document.getElementById('resultado-container').classList.remove('hidden');
+        document.getElementById('resultado').innerText = `R$ ${total.toLocaleString('pt-BR', {minimumFractionDigits: 2})}`;
+    }
+</script>
 </body>
 </html>
